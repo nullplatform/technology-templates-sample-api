@@ -40,6 +40,9 @@ let tx = async (txName, operation, errMsg) => {
             duration: end - start
         };
 
+        if(ex)
+            log["is_error"] = true;
+
         if(ex & errMsg)
             log["erro_msg"] = errMsg();
         else if(ex)
