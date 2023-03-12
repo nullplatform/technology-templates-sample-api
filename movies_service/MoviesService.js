@@ -1,5 +1,5 @@
 const axios = require('axios');
-const {NestedError, tx} = require("./NestedError");
+const {NestedError, UserError, tx} = require("../nested_error/NestedError");
 
 
 class MoviesService {
@@ -19,7 +19,7 @@ class MoviesService {
                 .join('&');
             return `${this.apiURL}/?${queryString}&apikey=${this.apiKey}`;
         } catch (e) {
-            throw new NestedError(`Error building url for ${JSON.stringify(args)}`, e);
+            throw new NestedError({message: `Error building url for ${JSON.stringify(args)}`, nestedError: e});
         }
     }
 
@@ -35,7 +35,7 @@ class MoviesService {
                 return movies;
             }
             else
-                throw new Error(`Movies not found with title: [${title}]`);
+                throw new UserError(`Movies not found with title: [${title}]`,  );
         });
     }
 
@@ -57,7 +57,7 @@ class MoviesService {
 exports.MoviesService = MoviesService;
 
 
-let test = async () => {
+let run = async () => {
     const apiKey = process.env.MOVIES_API_KEY;
     const apiUrl = process.env.MOVIES_API_URL; //http://www.omdbapi.com
 
@@ -94,4 +94,4 @@ let test = async () => {
     }
 };
 
-//test();
+//run();
