@@ -1,7 +1,8 @@
 # Nullplatform Sample Application Tutorial
 
-Welcome to the Nullplatform Javascript *Movie Search Application* tutorial! In this tutorial, we'll walk you through creating a JavaScript application using Fastify that searches for movies using the OMDB API. In the process we're going to explore together nullplatform UI and play with it.  
+In this tutorial, we'll guide you through the process of creating a JavaScript application using Fastify that searches for movies using the OMDB API. As we go through the tutorial, we'll also explore nullplatform's UI and show you how to use it to deploy and manage your application.
 
+By the end of the tutorial, you'll have a fully functional application that you can customize deplot and play. Let's get started!
 
 > **Important**: Before you begin this tutorial, please ensure that you have:
 > 1) A [nullplatform](https://www.nullplatform.com) account that works in your organization or you can request access to our [sandbox](sandbox@nullplatform.io) and we'll email you the credentials.
