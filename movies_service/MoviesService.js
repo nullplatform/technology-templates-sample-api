@@ -1,5 +1,4 @@
 const axios = require('axios');
-const {NestedError, UserError, logBlock} = require("@nullplatform/np-error-js");
 
 class MoviesService {
 
@@ -19,38 +18,71 @@ class MoviesService {
                 .join('&');
             return `${this.apiURL}/?${queryString}&apikey=${this.apiKey}`;
         } catch (e) {
-            throw new NestedError({message: `Error building url for ${JSON.stringify(args)}`, error: e});
+            let err= new Error(`Error building url for ${JSON.stringify(args)}`);
+            err.cause = e;
+            throw err;
         }
     }
 
     async searchMovie(title) {
-        return await logBlock("search_movie", async (log) => {
-            const url = this.buildUrl({type: "movie", s: title});
-            log("url", url);
+        const url = this.buildUrl({type: "movie", s: title});
+        const start = Date.now();
+        let quantity;
+        let status;
+        let error;
+
+        try {
             let response = await axios.get(url);
-            log("status", response.status);
+            status = response.status;
             const movies = response.data.Search;
-            if (movies) {
-                log("movies_cnt", movies.length);
-                return movies;
-            }
-            else
-                throw new UserError({message: `No movies found with title: [${title}]`, code: UserError.NOT_FOUND});
-        });
+            if (movies)
+                quantity = movies.length;
+
+            return movies;
+        } catch (e) {
+            error = e;
+            e = new Error(`Error searching for ${title}`);
+            e.cause = error;
+            throw e;
+        } finally {
+            const end = Date.now();
+            console.log(JSON.stringify({
+                operation: "search_movie",
+                duration: end-start,
+                title,
+                url,
+                status,
+                quantity,
+                error: error.toString()
+            }))
+        }
     }
 
     async getMovieDetails(imdbID) {
-        return await logBlock("get_movie", async (log) =>{
-            log("imdbID", imdbID)
-
-            const url = this.buildUrl({i: imdbID});
-            log("url", url);
-
+        const url = this.buildUrl({i: imdbID});
+        const start= Date.now();
+        let status;
+        let error;
+        try {
             let response = await axios.get(url);
-            log("status", response.status);
-
+            status = response.status;
             return response.data;
-        });
+        } catch (e) {
+            error = e;
+            e = new Error(`Error getting movie for ${imdbID}`);
+            e.cause = error;
+            throw e;
+        } finally {
+            const end = Date.now();
+            console.log(JSON.stringify({
+                operation: "search_movie",
+                duration: end-start,
+                imdb_id: imdbID,
+                url,
+                status,
+                error: error.toString()
+            }))
+        }
     }
 }
 

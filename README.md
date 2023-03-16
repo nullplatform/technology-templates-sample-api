@@ -11,7 +11,7 @@ By the end of the tutorial, you'll have a fully functional application that you 
 We're going use [nullplatform](https://www.nullplatform.com) to:
 
 * Create Github repository based on this template.
-* Setup CI & Building pipeline that runs tests, produces a Docker image and pushes it to ECR.
+* Setup CI & Building pipeline.
 * Create the necessary infrastructure to release the application to production.
 * Configure the application using environment variables.
 * Browse and search application logs.
@@ -38,7 +38,7 @@ Make surethe *"Deploy Application"* option is checked before clicking the *"Crea
 __Click *"Create Application"*:__
 Once you click on *Create Application* your application will be running in your cloud account in minutes.
 
-<img src="gifs/create_application.gif" style="border: 2px solid black;" width="1200">
+<img src="gifs/create_application.gif">
 
 ### You are all set! 
 Congratulations! You've just created a brand-new application that will soon be up and running in production. During the creation process, a number of important things have happened, including:
@@ -49,7 +49,7 @@ Congratulations! You've just created a brand-new application that will soon be u
 After just a few minutes, your application will be fully operational and ready for use. We'll start customizing it to meet the demo needs, adding your own code, configurations and browsing logs and metrics.
 
 
-<img src="gifs/finish_create_app.gif" style="border: 2px solid black;" width="1200">
+<img src="gifs/finish_create_app.gif">
 
 
 ### Congratulations! 
@@ -61,9 +61,9 @@ your new application is up and running! Here are a few things you can do now:
 
 Now that your application is up and running, you have full control over its development and operation.
 
-<img src="gifs/browse_application.gif" style="border: 2px solid black;" width="1200">
+<img src="gifs/browse_application.gif">
 
-2) Configure parameters:
+## Configuring application parameters
    1) Parameters needed by the application. 
    2) Setting up a parameter.
    3) Setting up a secret.

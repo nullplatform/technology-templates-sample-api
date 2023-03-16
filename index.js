@@ -20,14 +20,24 @@ fastify.register(cors, {
 
 // Declare a route
 fastify.get('/movie', async (request, reply) => {
-    try {
-        if (!moviesService)
-            throw new UserError({message: "Either MOVIES_API_KEY or MOVIES_API_URL parameter is missing", code: UserError.NOT_AUTHORIZED});
+    const start = Date.now();
+    let error;
+    let searchString = request.query.q;
 
-        let searchString = request.query.q;
+    try {
+        if (!moviesService) {
+            console.log("here!")
+            reply.code(401);
+            return {message: "Either MOVIES_API_KEY or MOVIES_API_URL parameter is missing"};
+        }
 
         if (searchString) {
             let movies = await moviesService.searchMovie(searchString);
+            if (!movies) {
+                reply.code(404);
+                return {message: `No movies found for ${searchString}`}
+            }
+
             let promises = [];
             for (let i = 0; i < movies.length; i++) {
                 let movie = movies[i];
@@ -38,23 +48,24 @@ fastify.get('/movie', async (request, reply) => {
                 }));
             }
             await Promise.all(promises);
+            reply.code(200)
             return movies;
         } else {
-            throw new UserError({message: "Argument q is required", code: UserError.INVALID_ARGUMENT});
+            reply.code(400);
+            return {message: `Argument q is required, call /movie?q=top gun`};
         }
     } catch (e) {
         console.log(e);
-        if(e instanceof NestedError) {
-            let userError = e.userError();
-            if(userError && userError.code == UserError.NOT_AUTHORIZED)
-                reply.statusCode = 401;
-            else
-                reply.statusCode = 400;
-            return {message: userError.userMessage, code: userError.code};
-        } else {
-            reply.statusCode = 400;
-            return {message: "Unknown Error"};
-        }
+        reply.code(500);
+        return {message: `Internal server error`};
+    } finally {
+        console.log(JSON.stringify({
+            search: searchString,
+            operation: "/movie",
+            code: reply?.statusCode,
+            error: error?.toString(),
+            duration: Date.now() - start
+        }))
     }
 });
 
