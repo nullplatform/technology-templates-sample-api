@@ -19,6 +19,9 @@ fastify.get('/movie', async (request, reply) => {
     let searchString = request.query.q;
 
     try {
+        //TODO: Uncomment this code =)
+        //console.log(`Searching for ${searchString}`);
+
         if (!moviesService) {
             console.log("here!")
             reply.code(401);

@@ -13,7 +13,7 @@ We're going use [nullplatform](https://www.nullplatform.com) to:
 * Create Github repository based on this template.
 * Setup CI & Building pipeline.
 * Create the necessary infrastructure to release the application to production.
-* Configure the application using environment variables.
+* Configure the application using environment variables & secrets.
 * Browse and search application logs.
 * Analyze performance metrics
 * Browse custom (business) metrics.
@@ -131,13 +131,38 @@ By setting the `MOVIES_API_KEY` parameter as a __Secret__, we ensure that sensit
 
 <img src="gifs/create_secret_key.gif">
 
-## Deploying new releases using _nullplatform_
+## Making changes to your application
 
-Let's deploy our application, so parameters can be applied!
+Let's now make a change in the application, we'll deploy it to production later on.
+
+### Editing the code
+
+1) Navigate to the __"Dashboard"__ section.
+2) In the __"Quick information"_ card, select repository.
+3) Now we're in the __Application__ repository on Github.
+4) Open `index.js`.
+5) To edit the file in place, you can click on the pencil in the upper right corner of the page.
+6) Locate the TODO section in the code and uncomment a `console.log(...)` statement:
+``` javascript
+    try {
+        //TODO: Uncomment this code =)
+        //console.log(`Searching for ${searchString}`);
+
+        if (!moviesService) {
+```
+7) Once you've made the change, scroll to the bottom of the page, add a commit message, and click the __"Commit changes"__ button.
+
+And that's it! Your change has been committed and a new build is in progress. We'll deploy the updated application to production once the build is finished!
+
+### Building
+
+> VIDEO 
+
+### New Release and Start Deploy
 
 
+### Moving traffic between Releases
 
-3) Making a change:
    1) Adding a new Log.
    2) Commiting
 >VIDEO Making changes and creating your own build.
