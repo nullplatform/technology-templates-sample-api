@@ -65,13 +65,13 @@ Now that your application is up and running, you have full control over its deve
 
 ### Now lets browse your new productive application!
 
-* Navigate o __"Scopes"__ in the left-hand menu.
+* Go to the __"Scopes"__ section in the left-hand menu.
 * You'll see the main scope there. Scopes are like clusters, you can create as many clusters as you want for your application. We'll explore this topic in more detail later on.
 * Click on the __"Domain"__ link in the main Scope card to access your new application.
 
 <img src="gifs/goto_scope_domain_and_fail.gif">
 
-### Ooops! Configuration is needed!
+### Ooops! It looks like some configuration is needed!
 
 When we browse our new application, we may receive an error response that looks like this:
 
@@ -80,9 +80,7 @@ When we browse our new application, we may receive an error response that looks 
    "message": "Either MOVIES_API_KEY or MOVIES_API_URL parameter is missing"
 }
 ```
-
 This error message indicates that our application requires some environment configuration to operate correctly. If we take a look at the `index.js` file, we can see that our application needs two environment variables to run properly:
-
 
 ```` javascript
 /**
@@ -96,16 +94,48 @@ To fix this issue, we need to provide valid values for `MOVIES_API_KEY` and `MOV
 
 ## Configuration management in _nullplatform_
 
-Managing configuration parameters in nullplatform is easy! Follow these steps to get started:
+
+### Setting `MOVIES_API_URL` parameter
+Managing configuration parameters in nullplatform is easy! Follow these steps to create the `MOVIES_API_URL` variable:
 
 1) Navigate to the __Parameters__ section in the left-hand menu.
 2) Click on "+ New Parameter" button to create a new parameter.
-3) You can then pick a name for your parameter that will be meaninigful for you and your team, not necessarily the environment name. This name doesn't need to match the environment name, it can contain spaces.
-4) Next, choose whether you want to represent the parameter as an environment or a configuration file.
-5) Since we want our parameter to be an environment variable, check the __"Environment Variable"__ option.
-6) Finally, specify the __"Variable name"__, now we have to match the name we specified in the application, in our case `MOVIES_API_URL`.
-   
->VIDEO Create MOVIES_API_URL parameter
+3) Choose a meaningful name for your parameter that will help you and your team identify its purpose. This name doesn't need to match the environment name and can contain spaces.
+4) Next, choose whether you want to represent the parameter as an environment or a configuration file. Since we want our parameter to be an environment variable, check the Environment Variable option.
+5) Specify the __"Variable Name"__ that matches the name you specified in your application, in this case, `MOVIES_API_URL`.
+6) Then we specify the __"Variable name"__, now we have to match the name we specified in the application, in our case `MOVIES_API_URL`.
+7) We have two options: we can set a default value for all the application __Scopes__, or we can be more specific and override a parameter for a given __Scope__. In this tutorial, we're working on the main __Scope__, so we'll select the __Main__ tab and set the value like in the picture below.
+8) Finally, we click the __"Create Parameter"__ button to proceed.
+
+By following these steps, you have set up the `MOVIES_API_URL` parameter in _nullplatform_, and your application should now be able to access this environment variable in the next deployment.
+
+<img src="gifs/create_environment_url.gif">
+
+### Setting `MOVIES_API_KEY` parameter as a _secret_ 
+
+
+> Before we can proceed, please ensure that you have an API key for the [OMDB API](https://www.omdbapi.com/apikey.aspx). Once you've registered for an API key, you'll receive an email that looks like this:
+> <img src="gifs/ombd_email.png">
+> Copy the token from the URL provided in the email and don't forget to validate your email by clicking the link below it.
+
+Follow these steps to set up the `MOVIES_API_KEY` parameter as a secret in nullplatform:
+
+
+
+1) Check your inbox and copy your API token.
+2) Follow the same steps as before, but replace the parameter and variable names with appropriate ones.
+3) Before clicking on the __"Create Parameter"__ button, check the __"Set value as secret"__ option.
+4) Finally create it!.
+
+By setting the `MOVIES_API_KEY` parameter as a __Secret__, we ensure that sensitive information is not displayed in plain text in our code or frontend. This is an important step to take when managing configuration parameters that contain sensitive information. From now on, we can only change this parameter, but never read it again from the UI, ensuring maximum security for our application.
+
+<img src="gifs/create_secret_key.gif">
+
+## Deploying new releases using _nullplatform_
+
+Let's deploy our application, so parameters can be applied!
+
+
 
 3) Making a change:
    1) Adding a new Log.
