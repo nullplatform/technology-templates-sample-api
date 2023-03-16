@@ -154,39 +154,33 @@ Let's now make a change in the application, we'll deploy it to production later 
 
 And that's it! Your change has been committed and a new build is in progress. We'll deploy the updated application to production once the build is finished!
 
-### Building
-
-> VIDEO 
+<img src="gifs/change_code.gif">
 
 ### New Release and Start Deploy
 
+<img src="gifs/create_release.gif">
+
+<img src="gifs/initiate_deploy.gif">
 
 ### Moving traffic between Releases
 
-   1) Adding a new Log.
-   2) Commiting
->VIDEO Making changes and creating your own build.
+<img src="gifs/move_traffic_and_finish.gif">
 
-4) Deploying the application:
-   1) Creating a release.
-   2) Deploying a release.
-   3) Switching the traffic.
+### Check the app!
 
->VIDEO Release, Deploy, Switch traffic.
+<img src="gifs/working_app.gif">
 
-6) Using logs:
-   1) Logs in the sample application: 
-   2) Browsing logs
-      1) Date filter
-      2) Tail
-   3) Searching logs
-      1) Querying structured and non structured logs.
+## Using logs
 
->VIDEO Explore logs-pretty print, search logs. 
+<img src="gifs/browse_logs.gif">
+
+<img src="gifs/search_logs.gif">
+   
+
 
 7) Analyzing performance:
 
->VIDEO Analyzing performance.
+<img src="gifs/performance_metrics.gif">
 
 8)Analyzing business metrics in the infrastructure context:
 
