@@ -69,7 +69,7 @@ fastify.get('/movie', async (request, reply) => {
 });
 
 fastify.get('/', async (request, reply) => {
-    reply.redirect(301, '/movie?zombies');
+    reply.redirect(301, '/movie?q=zombies');
 });
 
 //Health

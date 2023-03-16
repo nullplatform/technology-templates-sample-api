@@ -53,7 +53,7 @@ class MoviesService {
                 url,
                 status,
                 quantity,
-                error: error.toString()
+                error: error?.toString()
             }))
         }
     }
