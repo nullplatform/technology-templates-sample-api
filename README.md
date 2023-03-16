@@ -5,7 +5,7 @@ In this tutorial, we'll guide you through the process of creating a JavaScript a
 By the end of the tutorial, you'll have a fully functional application that you can customize deplot and play. Let's get started!
 
 > **Important**: Before you begin this tutorial, please ensure that you have:
-> 1) A [nullplatform](https://www.nullplatform.com) account that works in your organization or you can request access to our [sandbox](sandbox@nullplatform.io) and we'll email you the credentials.
+> 1) A [nullplatform](https://www.nullplatform.com) account that works in your organization or you can request access to our [sandbox](https://forms.gle/bmsZ3r51WQnofAw49) and we'll email you the credentials.
 > 2) An [OMDB API](https://www.omdbapi.com/apikey.aspx) access token. 
 
 We're going use [nullplatform](https://www.nullplatform.com) to:
