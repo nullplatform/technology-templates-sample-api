@@ -63,12 +63,49 @@ Now that your application is up and running, you have full control over its deve
 
 <img src="gifs/browse_application.gif">
 
-## Configuring application parameters
-   1) Parameters needed by the application. 
-   2) Setting up a parameter.
-   3) Setting up a secret.
-      1) Set up the OMBD API access token.
->VIDEO Explore the parametrization requirements in the sample app, configure parameters and secrets
+### Now lets browse your new productive application!
+
+* Navigate o __"Scopes"__ in the left-hand menu.
+* You'll see the main scope there. Scopes are like clusters, you can create as many clusters as you want for your application. We'll explore this topic in more detail later on.
+* Click on the __"Domain"__ link in the main Scope card to access your new application.
+
+<img src="gifs/goto_scope_domain_and_fail.gif">
+
+### Ooops! Configuration is needed!
+
+When we browse our new application, we may receive an error response that looks like this:
+
+``` json
+{
+   "message": "Either MOVIES_API_KEY or MOVIES_API_URL parameter is missing"
+}
+```
+
+This error message indicates that our application requires some environment configuration to operate correctly. If we take a look at the `index.js` file, we can see that our application needs two environment variables to run properly:
+
+
+```` javascript
+/**
+ * Read some operational configuration and secrets!
+ */
+const apiKey = process.env.MOVIES_API_KEY;
+const apiUrl = process.env.MOVIES_API_URL;
+````
+
+To fix this issue, we need to provide valid values for `MOVIES_API_KEY` and `MOVIES_API_URL` environment variables. These variables contain sensitive information that should not be hard-coded into our code. We'll cover how to set up these variables in the next steps.
+
+## Configuration management in _nullplatform_
+
+Managing configuration parameters in nullplatform is easy! Follow these steps to get started:
+
+1) Navigate to the __Parameters__ section in the left-hand menu.
+2) Click on "+ New Parameter" button to create a new parameter.
+3) You can then pick a name for your parameter that will be meaninigful for you and your team, not necessarily the environment name. This name doesn't need to match the environment name, it can contain spaces.
+4) Next, choose whether you want to represent the parameter as an environment or a configuration file.
+5) Since we want our parameter to be an environment variable, check the __"Environment Variable"__ option.
+6) Finally, specify the __"Variable name"__, now we have to match the name we specified in the application, in our case `MOVIES_API_URL`.
+   
+>VIDEO Create MOVIES_API_URL parameter
 
 3) Making a change:
    1) Adding a new Log.

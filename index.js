@@ -75,6 +75,9 @@ fastify.get('/health', async (request, reply) => {
 // Run the server!
 const start = async () => {
     try {
+        /**
+         * Read some operational configuration and secrets!
+         */
         const apiKey = process.env.MOVIES_API_KEY;
         const apiUrl = process.env.MOVIES_API_URL;
 
