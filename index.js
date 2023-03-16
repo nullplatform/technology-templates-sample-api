@@ -7,11 +7,6 @@ const PORT = process.env.PORT || 8080;
 
 let moviesService;
 
-const ERROR_NO_ARGUMENT = "CONTROLLER_MOVIE_NO_ARGUMENT";
-const CONTROLLER_MOVIE_NO_ARGUMENT = "CONTROLLER_MOVIE_NO_ARGUMENT";
-
-
-
 fastify.register(cors, {
     origin: true, // allow all origins
     credentials: true // allow sending of credentials

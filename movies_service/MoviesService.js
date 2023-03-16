@@ -45,10 +45,9 @@ class MoviesService {
             e.cause = error;
             throw e;
         } finally {
-            const end = Date.now();
             console.log(JSON.stringify({
                 operation: "search_movie",
-                duration: end-start,
+                duration: Date.now()-start,
                 title,
                 url,
                 status,
@@ -73,14 +72,13 @@ class MoviesService {
             e.cause = error;
             throw e;
         } finally {
-            const end = Date.now();
-            console.log(JSON.stringify({
+             console.log(JSON.stringify({
                 operation: "search_movie",
-                duration: end-start,
+                duration: Date.now()-start,
                 imdb_id: imdbID,
                 url,
                 status,
-                error: error.toString()
+                error: error?.toString()
             }))
         }
     }
