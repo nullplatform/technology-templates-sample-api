@@ -38,7 +38,7 @@ Make surethe *"Deploy Application"* option is checked before clicking the *"Crea
 __Click *"Create Application"*:__
 Once you click on *Create Application* your application will be running in your cloud account in minutes.
 
-+<img src="https://nullp-movie-tutorial.s3.amazonaws.com/Create+Application.gif">
+<img src="gifs/create_application.gif">
 
 ### You are all set! 
 Congratulations! You've just created a brand-new application that will soon be up and running in production. During the creation process, a number of important things have happened, including:
@@ -49,7 +49,7 @@ Congratulations! You've just created a brand-new application that will soon be u
 After just a few minutes, your application will be fully operational and ready for use. We'll start customizing it to meet the demo needs, adding your own code, configurations and browsing logs and metrics.
 
 
-+<img src="https://nullp-movie-tutorial.s3.amazonaws.com/Finish+Create+App.gif">
+<img src="gifs/finish_create_app.gif">
 
 
 ### Congratulations! 
@@ -61,7 +61,7 @@ your new application is up and running! Here are a few things you can do now:
 
 Now that your application is up and running, you have full control over its development and operation.
 
-+<img src="https://nullp-movie-tutorial.s3.amazonaws.com/Browse+application.gif">
+<img src="gifs/browse_application.gif">
 
 2) Configure parameters:
    1) Parameters needed by the application. 
