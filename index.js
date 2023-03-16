@@ -1,6 +1,5 @@
 const fastify = require('fastify')({ logger: { level: 'error' } });
 const {MoviesService} = require('./movies_service/MoviesService');
-const {logBlock, NestedError, UserError} = require("@nullplatform/np-error-js");
 const cors = require('@fastify/cors');
 
 const HOST = process.env.HOST || '0.0.0.0'
