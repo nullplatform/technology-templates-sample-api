@@ -30,17 +30,15 @@ When creating a new application, it's important to start with a solid foundation
 
 For this tutorial, we'll be using the ___Tutorial: Movie Search Application___ template, which is specifically designed to guide you through _nullplatform_ features. This template includes some pre-built [fastify](https://www.fastify.io/) endpoints that will serve as an example and some logs and parameters that will serve to show-off _nullplatform features!_ .
 
-To get started, choose the ___Tutorial: Movie Search Application___ template from the list of available templates.
+Choose the ___Tutorial: Movie Search Application___ template from the list of available templates.
 
 __Make sure you select *"Deploy application"*:__
-Make sure to check the *"Deploy Application"* option before clicking the create button. This will automatically deploy your application to your cloud infrastructure, making it available for use right away.
+Make surethe *"Deploy Application"* option is checked before clicking the *"Create Application" button. This will automatically deploy your application to your cloud infrastructure, making it available for use right away.
 
 __Click *"Create Application"*:__
 Once you click on *Create Application* your application will be running in your cloud account in minutes.
 
-![Create Application](https://nullp-movie-tutorial.s3.amazonaws.com/Create+Application.gif)
-
-
++<img src="https://nullp-movie-tutorial.s3.amazonaws.com/Create+Application.gif">
 
 ### You are all set! 
 Congratulations! You've just created a brand-new application that will soon be up and running in production. During the creation process, a number of important things have happened, including:
@@ -51,8 +49,7 @@ Congratulations! You've just created a brand-new application that will soon be u
 After just a few minutes, your application will be fully operational and ready for use. We'll start customizing it to meet the demo needs, adding your own code, configurations and browsing logs and metrics.
 
 
-
-![Creation finished](https://nullp-movie-tutorial.s3.amazonaws.com/Finish+Create+App.gif)
++<img src="https://nullp-movie-tutorial.s3.amazonaws.com/Finish+Create+App.gif">
 
 
 ### Congratulations! 
@@ -64,10 +61,7 @@ your new application is up and running! Here are a few things you can do now:
 
 Now that your application is up and running, you have full control over its development and operation.
 
-
-
-![Browse application](https://nullp-movie-tutorial.s3.amazonaws.com/Browse+application.gif)
-
++<img src="https://nullp-movie-tutorial.s3.amazonaws.com/Browse+application.gif">
 
 2) Configure parameters:
    1) Parameters needed by the application. 
