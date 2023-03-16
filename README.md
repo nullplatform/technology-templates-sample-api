@@ -156,9 +156,25 @@ And that's it! Your change has been committed and a new build is in progress. We
 
 <img src="gifs/change_code.gif">
 
-### New Release and Start Deploy
+### Creating a New Release
+
+After committing changes to your Github repository, a new build will be created automatically. Once the build is finished, we can create a release based on it.
+
+
+Follow this steps to create a __Release__:
+
+1) Navigate to the __Build__ section in the left-hand bar.
+2) Locate the __Build__ based on the commit you recently made.
+3) If the __Build__ is not yet __Finished__, wait for it to complete.
+4) Once the __Build__ finished, you can click on the __+ New release__ button on the same row as the __Build__.
+5) Enter a version number for the new __Release__.
+6) Click the __Create Release__ button.
+
+> Note: While we've kept a simple branching policy for this tutorial that only builds when pushing to the master branch, in practice you can build on any branch and create releases based on them.
 
 <img src="gifs/create_release.gif">
+
+### Starting a deploy on live infrastructure
 
 <img src="gifs/initiate_deploy.gif">
 
