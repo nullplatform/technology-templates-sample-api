@@ -1,6 +1,6 @@
 const fastify = require('fastify')({ logger: { level: 'error' } });
 const {MoviesService} = require('./movies_service/MoviesService');
-const {tx, NestedError, UserError} = require("./nested_error/NestedError");
+const {logBlock, NestedError, UserError} = require("@nullplatform/np-error-js");
 const cors = require('@fastify/cors');
 
 const HOST = process.env.HOST || '0.0.0.0'
@@ -8,8 +8,8 @@ const PORT = process.env.PORT || 8080;
 
 let moviesService;
 
-const ERROR_NO_ARGUMENT = 0;
-const ERROR_NO_PARAMETER = 1;
+const ERROR_NO_ARGUMENT = "CONTROLLER_MOVIE_NO_ARGUMENT";
+const CONTROLLER_MOVIE_NO_ARGUMENT = "CONTROLLER_MOVIE_NO_ARGUMENT";
 
 
 
@@ -21,39 +21,36 @@ fastify.register(cors, {
 // Declare a route
 fastify.get('/movie', async (request, reply) => {
     try {
-        return await tx("http_movie_search",
-            async (log) => {
-                if (!moviesService)
-                    throw new UserError("Either MOVIES_API_KEY or MOVIES_API_URL parameter is missing", ERROR_NO_PARAMETER);
+        if (!moviesService)
+            throw new UserError({message: "Either MOVIES_API_KEY or MOVIES_API_URL parameter is missing", code: UserError.NOT_AUTHORIZED});
 
-                let searchString = request.query.q;
+        let searchString = request.query.q;
 
-                if (searchString) {
-                    let movies = await moviesService.searchMovie(searchString);
-                    let promises = [];
-                    for (let i = 0; i < movies.length; i++) {
-                        let movie = movies[i];
-                        promises.push(new Promise(async (resolve, reject) => {
-                            let details = await moviesService.getMovieDetails(movie.imdbID);
-                            movie["details"] = details;
-                            resolve();
-                        }));
-                    }
-                    await Promise.all(promises);
-                    return movies;
-                } else {
-                    throw new UserError("Argument q is required", ERROR_NO_ARGUMENT);
-                }
-            });
-    }catch (e) {
+        if (searchString) {
+            let movies = await moviesService.searchMovie(searchString);
+            let promises = [];
+            for (let i = 0; i < movies.length; i++) {
+                let movie = movies[i];
+                promises.push(new Promise(async (resolve, reject) => {
+                    let details = await moviesService.getMovieDetails(movie.imdbID);
+                    movie["details"] = details;
+                    resolve();
+                }));
+            }
+            await Promise.all(promises);
+            return movies;
+        } else {
+            throw new UserError({message: "Argument q is required", code: UserError.INVALID_ARGUMENT});
+        }
+    } catch (e) {
         console.log(e);
         if(e instanceof NestedError) {
             let userError = e.userError();
-            if(userError && userError.userCode == ERROR_NO_PARAMETER)
+            if(userError && userError.code == UserError.NOT_AUTHORIZED)
                 reply.statusCode = 401;
             else
                 reply.statusCode = 400;
-            return {message: userError.userMessage, code: userError.userCode};
+            return {message: userError.userMessage, code: userError.code};
         } else {
             reply.statusCode = 400;
             return {message: "Unknown Error"};

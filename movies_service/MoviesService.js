@@ -1,15 +1,15 @@
 const axios = require('axios');
-const {NestedError, UserError, tx} = require("../nested_error/NestedError");
-
+const {NestedError, UserError, logBlock} = require("@nullplatform/np-error-js");
 
 class MoviesService {
+
     constructor(apiKey, apiUrl) {
         this.apiKey = apiKey;
         this.apiURL = apiUrl;
     }
 
     toString() {
-        return `MovieService(apiKey:${this.apiKey})`;
+        return `MovieService(apiKey:${this.apiKey};apiUrl${this.apiURL})`;
     }
 
     buildUrl(args) {
@@ -19,12 +19,12 @@ class MoviesService {
                 .join('&');
             return `${this.apiURL}/?${queryString}&apikey=${this.apiKey}`;
         } catch (e) {
-            throw new NestedError({message: `Error building url for ${JSON.stringify(args)}`, nestedError: e});
+            throw new NestedError({message: `Error building url for ${JSON.stringify(args)}`, error: e});
         }
     }
 
     async searchMovie(title) {
-        return await tx("search_movie", async (log) => {
+        return await logBlock("search_movie", async (log) => {
             const url = this.buildUrl({type: "movie", s: title});
             log("url", url);
             let response = await axios.get(url);
@@ -35,12 +35,12 @@ class MoviesService {
                 return movies;
             }
             else
-                throw new UserError(`Movies not found with title: [${title}]`,  );
+                throw new UserError({message: `No movies found with title: [${title}]`, code: UserError.NOT_FOUND});
         });
     }
 
     async getMovieDetails(imdbID) {
-        return await tx("get_movie", async (log) =>{
+        return await logBlock("get_movie", async (log) =>{
             log("imdbID", imdbID)
 
             const url = this.buildUrl({i: imdbID});
@@ -55,43 +55,3 @@ class MoviesService {
 }
 
 exports.MoviesService = MoviesService;
-
-
-let run = async () => {
-    const apiKey = process.env.MOVIES_API_KEY;
-    const apiUrl = process.env.MOVIES_API_URL; //http://www.omdbapi.com
-
-    let moviesService;
-
-    if(!apiKey)
-        console.log("ERROR: MOVIES_API_KEY parameter is not defined");
-    if(!apiUrl)
-        console.log("ERROR: MOVIES_API_URL parameter is not defined");
-    if(apiUrl && apiKey)
-        moviesService = new MoviesService(apiKey, apiUrl);
-    else
-        throw new Error("Missing environments");
-
-
-    try {
-        let movies = await moviesService.searchMovie("top gun");
-
-        for (let i = 0; i < movies.length; i++) {
-            let movie = movies[i];
-            let details = await moviesService.getMovieDetails(movie.imdbID);
-            movie["details"] = details.data;
-        }
-
-        //console.log(JSON.stringify(movies, null, '   '));
-    } catch (e) {
-        if (e instanceof NestedError && axios.isAxiosError(e.originalError())) {
-            console.log("Axios Error!");
-            console.log(e);
-        } else {
-            console.log(e);
-        }
-
-    }
-};
-
-//run();
