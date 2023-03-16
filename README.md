@@ -1,77 +1,67 @@
-# Nullplatform Sample Application Tutorial
+# Nullplatform sample application tutorial
 
-In this tutorial, we'll guide you through the process of creating a JavaScript application using Fastify that searches for movies using the OMDB API. As we go through the tutorial, we'll also explore nullplatform's UI and show you how to use it to deploy and manage your application.
+In this tutorial we'll guide you getting from zero to production with a fully functional application on nullplatform.
 
-By the end of the tutorial, you'll have a fully functional application that you can customize deploy and play with. Let's get started!
+Our sample application will be a Node.js application that searches for movies using the [OMDB API](https://www.omdbapi.com/).
 
-> **Important**: Before you begin this tutorial, please ensure that you have:
-> 1) A [nullplatform](https://www.nullplatform.com) account that works in your organization or you can request access to our [sandbox](https://forms.gle/bmsZ3r51WQnofAw49) and we'll email you the credentials.
-> 2) An [OMDB API](https://www.omdbapi.com/apikey.aspx) access token. 
+Before starting be sure to get:
+- [ ] A nullplatform account for your organization ([request access to our sandbox](https://forms.gle/bmsZ3r51WQnofAw49) to get the credentials).
+- [ ] An [OMDB API access token](https://www.omdbapi.com/apikey.aspx). 
 
-We're going use [nullplatform](https://www.nullplatform.com) to:
+In the next sections you'll command nullplatform to do these heavy-lifting tasks:
 
-* Create Github repository based on this template.
-* Setup CI & Building pipeline.
-* Create the necessary infrastructure to release the application to production.
-* Configure the application using environment variables & secrets.
-* Browse and search application logs.
-* Analyze performance metrics
-* Browse custom (business) metrics.
-
-
-But don't worry, as complex as it may sound, this is going to be super straightforward and fast. In less than 10 minutes you'll be playing with the deployed app. 
+- Create a Github repository based on this application template,
+- Set the CI & build pipeline,
+- Create the infrastructure to release the application,
+- Configure the application environment & secrets,
+- Set up the log & telemetry infrastructure,
+- Set up the cloud's networking, provisioning, and traffic management.
 
 ## Create an new application
-__Name your aplication__:
-The first step is to give your new application a name. This can be anything you like, but make sure it's descriptive and unique. Once you've decided on a name, enter it into the application name field.
-
-__Pick the right template__:
-When creating a new application, it's important to start with a solid foundation. That's where templates come in. Templates are pre-built structures that provide a meaningful starting point for your application.
-
-For this tutorial, we'll be using the ___Tutorial: Movie Search Application___ template, which is specifically designed to guide you through _nullplatform_ features. This template includes some pre-built [fastify](https://www.fastify.io/) endpoints that will serve as an example and some logs and parameters that will serve to show-off _nullplatform features!_ .
-
-Choose the ___Tutorial: Movie Search Application___ template from the list of available templates.
-
-__Make sure you select *"Deploy application"*:__
-Make surethe *"Deploy Application"* option is checked before clicking the *"Create Application" button. This will automatically deploy your application to your cloud infrastructure, making it available for use right away.
-
-__Click *"Create Application"*:__
-Once you click on *Create Application* your application will be running in your cloud account in minutes.
 
 <img src="gifs/create_application.gif">
 
-### You are all set! 
-Congratulations! You've just created a brand-new application that will soon be up and running in production. During the creation process, a number of important things have happened, including:
-* Brand-new infrastructure has been provisioned within your cloud provider, within a secure network that you control.
-* Autoscaling, autohealing, and rightsizing have been provided out-of-the-box, along with automatic spotfleet selection that can deliver up to 50% cloud-cost savings automatically.
-* A new private GitHub repository has been created that is owned by your GitHub organization.
+#### Steps
 
-After just a few minutes, your application will be fully operational and ready for use. We'll start customizing it to meet the demo needs, adding your own code, configurations and browsing logs and metrics.
+1. Enter the application's name
+   - this can be anything you like
+   - make sure it's descriptive and unique
 
+2. Pick the `Tutorial: Movie Search Application` template
+   - This template includes some pre-built [fastify](https://www.fastify.io/) endpoints that will serve as an example plus logs and parameters that will serve to showcase nullplatform's capabilities.
+   - Templates are pre-built repositories that provide a meaningful starting point for your application.
+   - We don't have a suitable template for you? no worries, you still can deploy anything that runs on containers.
 
+3. Make sure the `Deploy application` box is checked
+   - This will automatically deploy your application to your cloud infrastructure, making it available for use right away.
+
+4. Click on `Create Application` and wait for nullplatform to deploy your application.
 <img src="gifs/finish_create_app.gif">
 
+> **What's going on during the create application process?**
+> * Brand-new infrastructure has been provisioned within your cloud provider, within a secure network that you control.
+> * Autoscaling, autohealing, and rightsizing have been provided out-of-the-box, along with automatic spotfleet selection that can deliver up to 50% cloud-cost savings automatically.
+> * A new private GitHub repository has been created that is owned by your GitHub organization.
 
-### Congratulations! 
-
-your new application is up and running! Here are a few things you can do now:
-
-* Explore the code in your new repository to get a better understanding of how it works and make any necessary changes.
-* Access your application's landing page by clicking on the "View Application" button. From there, you can operate your application, including creating a new release, deploying it, and accessing logs and metrics.
+### Congratulations! Your application is up and running!
 
 Now that your application is up and running, you have full control over its development and operation.
 
+#### Browse your application's dashboard
+
 <img src="gifs/browse_application.gif">
 
-### Now lets browse your new productive application!
-
-* Go to the __"Scopes"__ section in the left-hand menu.
-* You'll see the main scope there. Scopes are like clusters, you can create as many clusters as you want for your application. We'll explore this topic in more detail later on.
-* Click on the __"Domain"__ link in the main Scope card to access your new application.
+#### Browse the application you've just deployed
 
 <img src="gifs/goto_scope_domain_and_fail.gif">
 
-### Ooops! It looks like some configuration is needed!
+To see the application live:
+
+* Go to the `Scopes` section in the left-hand menu.
+* You'll see the main scope there. Scopes are like clusters, you can create as many clusters as you want for your application. We'll explore this topic in more detail later on.
+* Click on the `Domain` link in the main Scope card to access your new application.
+
+#### Ooops! It looks like some configuration is needed!
 
 When we browse our new application, we may receive an error response that looks like this:
 
@@ -92,157 +82,127 @@ const apiUrl = process.env.MOVIES_API_URL;
 
 To fix this issue, we need to provide valid values for `MOVIES_API_KEY` and `MOVIES_API_URL` environment variables. These variables contain sensitive information that should not be hard-coded into our code. We'll cover how to set up these variables in the next steps.
 
-## Configuration management in _nullplatform_
+## Configuration Management: Parameters
 
-
-### Setting `MOVIES_API_URL` parameter
-Managing configuration parameters in nullplatform is easy! Follow these steps to create the `MOVIES_API_URL` variable:
-
-1) Navigate to the __Parameters__ section in the left-hand menu.
-2) Click on "+ New Parameter" button to create a new parameter.
-3) Choose a meaningful name for your parameter that will help you and your team identify its purpose. This name doesn't need to match the environment name and can contain spaces.
-4) Next, choose whether you want to represent the parameter as an environment or a configuration file. Since we want our parameter to be an environment variable, check the Environment Variable option.
-5) Specify the __"Variable Name"__ that matches the name you specified in your application, in this case, `MOVIES_API_URL`.
-6) Then we specify the __"Variable name"__, now we have to match the name we specified in the application, in our case `MOVIES_API_URL`.
-7) We have two options: we can set a default value for all the application __Scopes__, or we can be more specific and override a parameter for a given __Scope__. In this tutorial, we're working on the main __Scope__, so we'll select the __Main__ tab and set the value like in the picture below.
-8) Finally, we click the __"Create Parameter"__ button to proceed.
-
-By following these steps, you have set up the `MOVIES_API_URL` parameter in _nullplatform_, and your application should now be able to access this environment variable in the next deployment.
+#### Setting the `MOVIES_API_URL` environment variable
 
 <img src="gifs/create_environment_url.gif">
 
-### Setting `MOVIES_API_KEY` parameter as a _secret_ 
+To create the `MOVIES_API_URL` environment variable:
 
+1) Navigate to the `Parameters` section in the left-hand menu and click on `+ New Parameter` button to create a new parameter
+3) Choose a name for your parameter
+4) Make sure the `environment variable` option is checked
+5) Specify `MOVIES_API_URL` as the `Variable Name`
+7) Select the `main` tab and enter the value like is shown in the animation above
+8) Click `Create Parameter`
 
-> Before we can proceed, please ensure that you have an API key for the [OMDB API](https://www.omdbapi.com/apikey.aspx). Once you've registered for an API key, you'll receive an email that looks like this:
-> <img src="gifs/ombd_email.png">
-> Copy the token from the URL provided in the email and don't forget to validate your email by clicking the link below it.
+Now you have set up the `MOVIES_API_URL` parameter in nullplatform and your application will get it in the next deployment.
 
-Follow these steps to set up the `MOVIES_API_KEY` parameter as a secret in nullplatform:
-
-
-
-1) Check your inbox and copy your API token.
-2) Follow the same steps as before, but replace the parameter and variable names with appropriate ones.
-3) Before clicking on the __"Create Parameter"__ button, check the __"Set value as secret"__ option.
-4) Finally create it!.
-
-By setting the `MOVIES_API_KEY` parameter as a __Secret__, we ensure that sensitive information is not displayed in plain text in our code or frontend. This is an important step to take when managing configuration parameters that contain sensitive information. From now on, we can only change this parameter, but never read it again from the UI, ensuring maximum security for our application.
+#### Setting the `MOVIES_API_KEY` secret variable
 
 <img src="gifs/create_secret_key.gif">
 
-## Making changes to your application
+Remember that you'll need to have an [OMDB API](https://www.omdbapi.com/apikey.aspx) key
+ - Once you've registered for an API key, you'll receive an email that looks like this:
+   <img src="gifs/ombd_email.png">
+ - Copy the token from the URL provided in the email and don't forget to validate your email by clicking the link below it.
+
+Follow these steps to set up the `MOVIES_API_KEY` parameter as a secret in nullplatform:
+
+1) Check your inbox and copy your API token
+2) Follow the same steps as before, but replace the parameter and variable names with appropriate ones.
+3) **Check the `Set value as secret` option**.
+4) Click on `Create Parameter`.
+
+> **Secrets.** By setting the `MOVIES_API_KEY` parameter as a __Secret__, we ensure that sensitive information is not displayed in plain text in our code or frontend. This is an important step to take when managing configuration parameters that contain sensitive information. From now on, we can only change this parameter, but never read it again from the UI, ensuring maximum security for our application.
+
+## Making changes to the application
+
+<img src="gifs/change_code.gif">
 
 Let's now make a change in the application, we'll deploy it to production later on.
 
 ### Editing the code
 
-1) Navigate to the __"Dashboard"__ section.
-2) In the __"Quick information"_ card, select repository.
-3) Now we're in the __Application__ repository on Github.
-4) Open `index.js`.
-5) To edit the file in place, you can click on the pencil in the upper right corner of the page.
-6) Locate the TODO section in the code and uncomment a `console.log(...)` statement:
+Finding the GitHub repository on nullplatform:
+1) Navigate to the `Dashboard` section
+2) In the `Quick information` card click on the `Repository` link
+
+Editing code on GitHub:
+1) Open `index.js`.
+2) Edit the file by clicking on the pencil in the upper right corner of the page
+3) Locate the TODO section in the code and uncomment the `console.log(...)` line:
 ``` javascript
     try {
         //TODO: Uncomment this code =)
         //console.log(`Searching for ${searchString}`);
 
         if (!moviesService) {
+        ...
 ```
-7) Once you've made the change, scroll to the bottom of the page, add a commit message, and click the __"Commit changes"__ button.
+4) Scroll to the bottom of the page and click the `Commit changes` button.
 
-And that's it! Your change has been committed and a new build is in progress. We'll deploy the updated application to production once the build is finished!
+Now your change has been committed and a new build is in progress. Follow the next section to create a release and deploy the changes.
 
-<img src="gifs/change_code.gif">
+### Deploy the changes
 
-### Creating a New Release
+To deploy we have to first create a release in nullplatform:
 
-After committing changes to your Github repository, a new build will be created automatically. Once the build is finished, we can create a release based on it.
-
-
-Follow this steps to create a __Release__:
-
-1) Navigate to the __Build__ section in the left-hand bar.
-2) Locate the __Build__ based on the commit you recently made.
-3) If the __Build__ is not yet __Finished__, wait for it to complete.
-4) Once the __Build__ finished, you can click on the __+ New release__ button on the same row as the __Build__.
-5) Enter a version number for the new __Release__.
-6) Click the __Create Release__ button.
-
-> Note: While we've kept a simple branching policy for this tutorial that only builds when pushing to the master branch, in practice you can build on any branch and create releases based on them.
+1) Navigate to the `Build` section in the left-hand bar
+2) Locate the build based on the commit you recently made and wait for the build to be `finished`.
+4) On the build's row, click the `+ New release` button
+5) Enter a version number release (in the shape of `x.y.z-text`, check [semantic versioning](https://semver.org/lang/es/) ).
+6) Click the `Create Release` button.
 
 <img src="gifs/create_release.gif">
 
-### Starting a deploy on live infrastructure
+#### Start a deploy on live infrastructure
 
 <img src="gifs/initiate_deploy.gif">
 
-### Moving traffic between Releases
+#### Move traffic between Releases
 
 <img src="gifs/move_traffic_and_finish.gif">
 
-### Check the app!
+#### Check your changes live
 
 <img src="gifs/working_app.gif">
 
-## Using logs
+## Logs
 
 <img src="gifs/browse_logs.gif">
 
 <img src="gifs/search_logs.gif">
    
-
-
-7) Analyzing performance:
+## Performance
 
 <img src="gifs/performance_metrics.gif">
 
-8)Analyzing business metrics in the infrastructure context:
+## Business Metrics
 
 >VIDEO Review the code for existing custom metrics,
 
+## Sample application's API
 
+- Search for all the movies that contains `top gun` in it's title: `GET /movie?name="top gun"`
 
+- Get the movie details by ID: `GET /movie/:id`
 
+- Get your valoration for a movie `GET /movie/:id/my`
 
+- Set your valoration for a movie `PATCH /movie/:id/my`
 
+## Appendix: running the application locally
 
-
-   
-
-
-# Sample API Tutorial Application
-
-This is a simple [Fastify](https://www.fastify.io/) application that showcases some of the [nullplatform](https://www.nullplatform.com) features. 
-
-`GET /movie?name="top gun"`: Retrieves all the movies that contains `top gun` in it's title.
-
-`PATCH /movie/:id/my`: Set your valuation for a movie.
-
-`GET /movie/:id`: 
-
-`GET /movie/:id/my`:
-
-## Getting started
-
-
-### Make sure you have a [nullplatform](https://www.nullplatform.com) account.
-
-* If you don't have a nullplatform account you can [request one](https://nullplatform.com/signup).
-
-
-
-
-### Create a new application in your [nullplatform](https://www.nullplatform.com) account.
-
-* Make sure to deploy your application into a scope
-
-### 
-
-To install the application, simply clone the repository and run `npm install`:
+To run and edit the application locally run these commands:
 
 ```bash
 git clone https://github.com/your-username/fastify-app.git
 cd fastify-app
 npm install
+npm start
+```
+
+Now you can browse the application in your browser.
+
